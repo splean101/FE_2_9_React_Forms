@@ -29,10 +29,13 @@ function App() {
       return;
     }
 
-    if (!/^[A_Z0-9._+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      console.log(/^[A_Z0-9._+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email));
       setIsEmailValid(false);
       return;
     }
+
+    
 
     setIsNameValid(true);
     setIsLOginValid(true);
@@ -41,13 +44,11 @@ function App() {
     console.log(name, login, age, email);
   };
 
-  const changeName = (e) => {
+   const changeName = (e) => {
     setName(e.target.value);
-    console.log('48', name.trim() === '' || /\d/.test(name));
   };
   const changeLogin = (e) => {
     setLogin(e.target.value);
-    console.log('52', login.length <= 5);
   };
   const changeAge = (e) => setAge(e.target.value);
   const changeEmail = (e) => setEmail(e.target.value);
