@@ -6,11 +6,6 @@ function App() {
   const [age, setAge] = useState('');
   const [email, setEmail] = useState('');
 
-  const changeName = (e) => setName(e.target.value);
-  const changeLogin = (e) => setLogin(e.target.value);
-  const changeAge = (e) => setAge(e.target.value);
-  const changeEmail = (e) => setEmail(e.target.value);
-
   const [isNameValid, setIsNameValid] = useState(false);
   const [isLoginValid, setIsLOginValid] = useState(false);
   const [isAgeValid, setIsAgeValid] = useState(false);
@@ -25,16 +20,16 @@ function App() {
     }
 
     if (login.length <= 5) {
-      setLogin(false);
+      setIsLOginValid(false);
       return;
     }
 
     if (age < 18) {
-      setAge(false);
+      setIsAgeValid(false);
       return;
     }
 
-    if (!/^[A_Z0-9._+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(name)) {
+    if (!/^[A_Z0-9._+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
       setIsEmailValid(false);
       return;
     }
@@ -46,17 +41,42 @@ function App() {
     console.log(name, login, age, email);
   };
 
+  const changeName = (e) => {
+    setName(e.target.value);
+    console.log('48', name.trim() === '' || /\d/.test(name));
+  };
+  const changeLogin = (e) => {
+    setLogin(e.target.value);
+    console.log('52', login.length <= 5);
+  };
+  const changeAge = (e) => setAge(e.target.value);
+  const changeEmail = (e) => setEmail(e.target.value);
+
   return (
     <div className="wrapper">
       <form onSubmit={submit}>
         <label>Name</label>
         <input onInput={changeName} className={isNameValid ? '' : 'invalid'} />
+        {!isNameValid && <p>Enter correct name</p>}
         <label>Login</label>
-        <input onInput={changeLogin} className={isLoginValid ? '' : 'invalid'}/>
+        <input
+          onInput={changeLogin}
+          className={isLoginValid ? '' : 'invalid'}
+        />
+        {!isLoginValid && <p>Enter correct login</p>}
         <label>Age</label>
-        <input type="number" onInput={changeAge} className={isAgeValid ? '' : 'invalid'}/>
+        <input
+          type="number"
+          onInput={changeAge}
+          className={isAgeValid ? '' : 'invalid'}
+        />
+        {!isAgeValid && <p>Enter correct age</p>}
         <label>Email</label>
-        <input onInput={changeEmail} className={isEmailValid ? '' : 'invalid'}/>
+        <input
+          onInput={changeEmail}
+          className={isEmailValid ? '' : 'invalid'}
+        />
+        {!isEmailValid && <p>Enter correct email</p>}
         <button type="submit">Sign in</button>
       </form>
     </div>
